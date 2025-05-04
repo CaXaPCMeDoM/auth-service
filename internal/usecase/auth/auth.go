@@ -96,7 +96,7 @@ func (r *Auth) RefreshOperation(ctx context.Context, dto dto.RefreshOperationReq
 		return "", "", entity.ErrGenerateAccess
 	}
 
-	newRefresh, expiredRefresh := r.tokenManager.GenerateRefresh(session.ID)
+	newRefresh, expiredRefresh := r.tokenManager.GenerateRefresh()
 	newRefreshHash, err := r.hasher.Generate(newRefresh)
 	if err != nil {
 		r.logger.Error("failed to hash new refresh token: %v", err)
@@ -166,7 +166,7 @@ func (r *Auth) CreatePairTokens(ctx context.Context, request dto.AccessRefreshTo
 		return "", "", entity.ErrBadParse
 	}
 
-	refreshToken, expiredRefresh := r.tokenManager.GenerateRefresh(sessionID)
+	refreshToken, expiredRefresh := r.tokenManager.GenerateRefresh()
 
 	refreshTokenHash, err := r.hasher.Generate(refreshToken)
 	if err != nil {
