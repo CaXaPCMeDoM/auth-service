@@ -1,0 +1,59 @@
+services:
+  app:
+    build: .
+    command: sh -c "sleep 10 && ./migrate-service && ./auth-service"
+    ports:
+      - "${HTTP_PORT:-8080}:${HTTP_PORT:-8080}"
+    environment:
+      - PG_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@auth-db-postgres:5432/${POSTGRES_DB}?sslmode=disable
+      - PG_POOL_MAX=${PG_POOL_MAX}
+      - HTTP_PORT=${HTTP_PORT}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - GIN_MODE=${GIN_MODE}
+
+      #JWT
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_ACCESS_TOKEN_TTL=${JWT_ACCESS_TOKEN_TTL}
+      - JWT_REFRESH_TOKEN_TTL=${JWT_REFRESH_TOKEN_TTL}
+
+      # Email
+      - FROM_MAIL=${FROM_MAIL}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+
+      # Security
+      - SECURITY_PASSWORD_COST=${SECURITY_PASSWORD_COST}
+    depends_on:
+      auth-db-postgres:
+        condition: service_healthy
+    networks:
+      - backend
+
+  auth-db-postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-db}
+      POSTGRES_USER: ${POSTGRES_USER:-caxap}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
+      POSTGRES_HOST_AUTH_METHOD: md5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "PGPASSWORD=$${POSTGRES_PASSWORD} pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"
+      ]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  pgdata:
