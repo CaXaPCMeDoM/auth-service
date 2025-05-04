@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/5f76f041-cf78-41cb-b3f7-befbcaf0f972)### "Продовый" запуск:
+### "Продовый" запуск:
 Если вы находитесь в директории проекта:
 ```
 docker-compose up --build -d 
@@ -43,7 +43,7 @@ PG_URL=postgres://caxap:1234@localhost:5432/db?sslmode=disable
 Там указаны мои креды, на которых я тестировал своё приложение.
 
 - Также специально создал почту, с которой отправляются варнинги о смене ip. Её данные указаны в .env
-  ![image](https://github.com/user-attachments/assets/260f4e10-098b-4bbe-9c78-709bf933cb24)
+  ![image](https://github.com/user-attachments/assets/dc7bcc52-db88-4550-979e-193ebc27c71a)
 
 ### Комментарии по реализации:
 1. GPT и другие LLM не использовались. Обращался только к документации. Некоторые ресурсы оставил ссылкой в качестве комментариев
