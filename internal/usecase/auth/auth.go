@@ -159,7 +159,6 @@ func (r *Auth) CreatePairTokens(ctx context.Context, request dto.AccessRefreshTo
 		return "", "", entity.ErrBadParse
 	}
 
-	sessionID := uuid.New()
 	jti, err := uuid.Parse(claims.ID)
 	if err != nil {
 		r.logger.Error("failed to parse JTI from token claims: %v", err)
