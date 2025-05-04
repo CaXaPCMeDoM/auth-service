@@ -15,7 +15,7 @@ import (
 
 const (
 	subjectEmailText = "Изменен ip"
-	bodyEmailText    = "Если вы не меняли пароль, то все-го хо-ро-ше-го"
+	bodyEmailText    = "Если вы не меняли устройство, то все-го хо-ро-ше-го"
 )
 
 type Auth struct {
