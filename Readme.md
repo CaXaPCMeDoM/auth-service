@@ -6,14 +6,14 @@ docker-compose up --build -d
 
 ### Локальный запуск
 Это не предусмотрено конфигурацией, поэтому придется ввести некоторые изменение:
-Во-первых, добавим в compose связь базы с внешним миром:
+1. Во-первых, добавим в compose связь базы с внешним миром:
 в compose нужно прокинуть порты для базы(для примера возьмем 5432):
 ```
 port:
     - 5432:5432
 ```
 
-И в .env изменим PG_URL, заменив auth-db-postgres на localhost
+2. В .env изменим PG_URL, заменив auth-db-postgres на localhost
 ```
 PG_URL=postgres://caxap:1234@localhost:5432/db?sslmode=disable
 ```
