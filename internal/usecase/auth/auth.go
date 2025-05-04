@@ -3,7 +3,7 @@ package auth
 import (
 	"auth-service/internal/controller/http/dto"
 	"auth-service/internal/entity"
-	"auth-service/internal/infastructur/repo"
+	"auth-service/internal/infrastructure/repo"
 	"auth-service/pkg/auth"
 	"auth-service/pkg/hash"
 	"auth-service/pkg/logger"

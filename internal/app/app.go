@@ -3,7 +3,7 @@ package app
 import (
 	"auth-service/config"
 	v1 "auth-service/internal/controller/http/v1"
-	"auth-service/internal/infastructur/repo/persistence"
+	"auth-service/internal/infrastructure/repo/persistence"
 	"auth-service/internal/usecase/auth"
 	"auth-service/pkg/auth/jwt"
 	"auth-service/pkg/hash/bcrypt"
